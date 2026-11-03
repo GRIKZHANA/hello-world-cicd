@@ -1,6 +1,5 @@
-# Feature update for Exercise 9
 def hello_world():
-    return "Hello, World!"
+    return "Hello, DevOps!"
 
 
 if __name__ == "__main__":
