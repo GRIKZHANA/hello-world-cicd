@@ -1,3 +1,4 @@
+# Exercise 3 - Testing automatic pipeline trigger
 def hello_world():
     return "Hello, DevOps!"
 
