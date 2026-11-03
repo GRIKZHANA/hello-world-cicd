@@ -2,12 +2,11 @@ name: Hello World CI-CD Pipeline
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
   pull_request:
-    branches: [main]
-
-permissions:
-  contents: read
+    branches:
+      - main
 
 jobs:
   build-test-package:
@@ -20,23 +19,22 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.11"
+          python-version: '3.11'
 
-      - name: Run Hello World application
-        run: python app.py
+      - name: Validate Python syntax
+        run: python -m py_compile app.py test_app.py
 
       - name: Run automated tests
-        run: python -m unittest -v
+        run: python -m unittest test_app.py
 
-      - name: Package application
+      - name: Create build package
         run: |
-          mkdir dist
-          cp app.py test_app.py dist/
-          cd dist
-          zip ../hello-world.zip app.py test_app.py
+          mkdir -p build
+          cp app.py build/
+          cp test_app.py build/
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
           name: hello-world-package
-          path: hello-world.zip
+          path: build/
